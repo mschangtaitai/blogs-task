@@ -11,4 +11,9 @@ class UserRepository {
     public function all() {
         return User::all();
     }
+
+    public function delete($id) {
+        $user = User::where('id', $id)->delete();
+        return $user;
+    }
 }

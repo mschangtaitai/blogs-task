@@ -19,4 +19,8 @@ class UserController extends Controller {
     public function index() {
         return $this->userRepository->all();
     }
+
+    public function delete($id) {
+        return $this->userRepository->delete($id);
+    }
 }
