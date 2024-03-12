@@ -15,26 +15,33 @@ class AuthenticatedSessionController extends Controller {
     /**
      * Handle an incoming authentication request.
      */
-    public function store(Request $request) {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'device_name' => 'required',
-        ]);
+    public function store(LoginRequest $request) {
+        $request->authenticate();
 
-        $user = User::where('email', $request->email)->first();
+        $request->session()->regenerate();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
-        }
-
-        $responsetoken = $user->createToken('device_name')->plainTextToken;
-        return response()->json([
-            'token' => $responsetoken,
-        ]);
+        return response()->noContent();
     }
+
+    // public function store(LoginRequest $request) {
+    //     $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     $user = User::where('email', $request->email)->first();
+
+    //     if (!$user || !Hash::check($request->password, $user->password)) {
+    //         throw ValidationException::withMessages([
+    //             'email' => ['The provided credentials are incorrect.'],
+    //         ]);
+    //     }
+
+    //     $responsetoken = $user->createToken('auth_token')->plainTextToken;
+    //     return response()->json([
+    //         'token' => $responsetoken,
+    //     ]);
+    // }
 
     /**
      * Destroy an authenticated session.

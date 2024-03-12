@@ -3,17 +3,31 @@
 namespace App\Repositories;
 
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BlogRepository {
     public function get($id) {
-        return Blog::findOrFail($id);
+        $blog =  Blog::with('user')->findOrFail($id);
+        $comments = array();
+        foreach ($blog->comments as $comment) {
+            $user = User::findOrFail($comment->user_id);
+            $comment->setAttribute('user', $user->first_name . ' ' . $user->last_name);
+            array_push($comments, $comment);
+        }
+        $blog->setAttribute('comments', $blog->comments);
+        return $blog;
     }
     public function all(Request $request) {
         $user_id = $request->user()->id;
-        $user_blogs = Blog::where('user_id', $user_id)->get();
+        $user_blogs = Blog::with('user')->where('user_id', $user_id)->first();
 
-        return $user_blogs;
+        return $user_blogs->comments;
+    }
+
+    public function feed(Request $request) {
+        $blogs = Blog::with('user')->paginate(4);
+        return $blogs;
     }
 
     public function store(Request $request) {

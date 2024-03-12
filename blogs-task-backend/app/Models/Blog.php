@@ -20,4 +20,8 @@ class Blog extends Model {
     public function comments(): MorphMany {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -23,4 +23,8 @@ class CommentController extends Controller {
     public function store(Request $request) {
         return $this->commentRepository->store($request);
     }
+
+    public function delete($id) {
+        return $this->commentRepository->delete($id);
+    }
 }

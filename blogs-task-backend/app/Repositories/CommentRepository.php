@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Blog;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class CommentRepository {
     }
     public function all(Request $request) {
         $user_id = $request->user()->id;
-        $user_comments = Comment::where('user_id', $user_id)->get();
+        $user_comments = Comment::with('user')->where('user_id', $user_id)->get();
 
         return $user_comments;
     }
@@ -23,11 +24,18 @@ class CommentRepository {
             'comment' => 'required',
         ]);
 
+        $type = request('commentable_type') == 'Blog' ? Blog::class : Comment::class;
+
         return Comment::create([
             'user_id' => $request->user()->id,
-            'commentable_type' => request('commentable_type'),
+            'commentable_type' => $type,
             'commentable_id' => request('commentable_id'),
             'comment' => request('comment'),
         ]);
+    }
+
+    public function delete($id) {
+        $comment = Comment::where('id', $id)->delete();
+        return $comment;
     }
 }

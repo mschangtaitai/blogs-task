@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\BlogRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class BlogController extends Controller {
     //
@@ -12,8 +13,8 @@ class BlogController extends Controller {
     ) {
     }
 
-    public function show() {
-        return $this->blogRepository->get(1);
+    public function show($id) {
+        return $this->blogRepository->get($id);
     }
 
     public function index(Request $request) {
@@ -26,5 +27,9 @@ class BlogController extends Controller {
 
     public function update(Request $request) {
         return $this->blogRepository->update($request);
+    }
+
+    public function feed(Request $request) {
+        return $this->blogRepository->feed($request);
     }
 }
