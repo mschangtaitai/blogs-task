@@ -27,7 +27,6 @@
   const route = useRoute()
   const blog = reactive({})
   const isLoading = ref(true)
-  const text = ref("")
 
   
   onMounted(async () => {
@@ -35,7 +34,6 @@
     const id = route.params.id
     const response = await axios.get(`/api/blog/${id}`)
     Object.assign(blog, response.data)
-    console.log(blog)
     isLoading.value = false
   })
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\BlogRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use stdClass;
 
 class BlogController extends Controller {
     //
@@ -18,18 +19,45 @@ class BlogController extends Controller {
     }
 
     public function index(Request $request) {
-        return $this->blogRepository->all($request);
+        $user_id = $request->user()->id;
+        return $this->blogRepository->all($user_id);
     }
 
     public function store(Request $request) {
-        return $this->blogRepository->store($request);
+        request()->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'hide_comments' => 'required|boolean',
+        ]);
+
+        $payload = new stdClass();
+        $payload->user_id = $request->user()->id;
+        $payload->title = $request->title;
+        $payload->content = $request->content;
+        $payload->hide_comments = $request->hide_comments;
+        $payload->available_at = $request->available_at;
+
+        return $this->blogRepository->store($payload);
     }
 
     public function update(Request $request) {
-        return $this->blogRepository->update($request);
+        request()->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'hide_comments' => 'required|boolean',
+        ]);
+
+        $payload = new stdClass();
+        $payload->user_id = $request->user()->id;
+        $payload->title = $request->title;
+        $payload->content = $request->content;
+        $payload->hide_comments = $request->hide_comments;
+        $payload->available_at = $request->available_at;
+
+        return $this->blogRepository->update($payload);
     }
 
-    public function feed(Request $request) {
-        return $this->blogRepository->feed($request);
+    public function feed() {
+        return $this->blogRepository->feed();
     }
 }
