@@ -4,14 +4,14 @@
 The goal is to create a blogging application that interacts with various systems and functionalities using Laravel and connects the developed API to Vue.js.
 
 ## Laravel
-- Implement CRUD operations for the entities.
-- Implement authentication using Sanctum.
-- Utilize Docker with Sail:
-    - Set up MySQL service with a volume in the Docker Compose file.
-    - Set up Redis service with a volume in the Docker Compose file.
-- Allow only users who created blogs to update them.
-- Research Dependency Injection in Laravel.
-- Create services for actions and inject them with DI, for example:
+- Implement CRUD operations for the entities. :heavy_check_mark:
+- Implement authentication using Sanctum. :heavy_check_mark:
+- Utilize Docker with Sail: :heavy_check_mark:
+    - Set up MySQL service with a volume in the Docker Compose file. :heavy_check_mark:
+    - Set up Redis service with a volume in the Docker Compose file. :heavy_check_mark:
+- Allow only users who created blogs to update them. :heavy_check_mark:
+- Research Dependency Injection in Laravel. :heavy_check_mark:
+- Create services for actions and inject them with DI, for example: :part_alternation_mark:
     - BlogService
         - create: Creates a blog and returns the eloquent model created.
 - Display blogs only when the `available_at` value is not present or is earlier than the current date.
@@ -41,15 +41,15 @@ The goal is to create a blogging application that interacts with various systems
 
 ## Vue
 - **Vue3**
-- Utilize Vue Router with the following paths:
-    - Login
-    - Feed (Paginated)
-    - Blog detail (Show comments of the blog and allow expanding on comments)
-    - User detail with its blogs (Paginated by infinite scrolling)
-- Use Pinia for state management:
-    - Store the blogs from the feed in Pinia.
-    - Update a blog from its detail and also update it from the feeds.
-    - Utilize persisted state for the feed.
-- Use logic with compositions when useful.
+- Utilize Vue Router with the following paths: 
+    - Login :heavy_check_mark:
+    - Feed (Paginated  by infinite scrolling) :part_alternation_mark:
+    - Blog detail (Show comments of the blog and allow expanding on comments) :heavy_check_mark:
+    - User detail with its blogs (Paginated) :heavy_check_mark:
+- Use Pinia for state management: :heavy_check_mark:
+    - Store the blogs from the feed in Pinia. :heavy_check_mark:
+    - Update a blog from its detail and also update it from the feeds. :heavy_check_mark:
+    - Utilize persisted state for the feed. 
+- Use logic with compositions when useful. :heavy_check_mark:
 - Implement Vee-Validate library for value validations.
-- Develop all components using the setup script tag.
+- Develop all components using the setup script tag. :heavy_check_mark:
