@@ -3,24 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\BlogRepository;
+use App\Repositories\BlogRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use stdClass;
 
 class BlogController extends Controller {
     //
-    public function __construct(
-        protected BlogRepository $blogRepository,
-    ) {
+    protected $blog;
+    public function __construct(BlogRepository $blog) {
+        $this->blog = $blog;
     }
 
     public function show($id) {
-        return $this->blogRepository->get($id);
+        return $this->blog->get($id);
     }
 
-    public function index(Request $request) {
-        $user_id = $request->user()->id;
-        return $this->blogRepository->all($user_id);
+    public function index($user_id) {
+        $user_id = $user_id;
+        return $this->blog->all($user_id);
     }
 
     public function store(Request $request) {
@@ -37,7 +37,7 @@ class BlogController extends Controller {
         $payload->hide_comments = $request->hide_comments;
         $payload->available_at = $request->available_at;
 
-        return $this->blogRepository->store($payload);
+        return $this->blog->store($payload);
     }
 
     public function update(Request $request) {
@@ -54,10 +54,10 @@ class BlogController extends Controller {
         $payload->hide_comments = $request->hide_comments;
         $payload->available_at = $request->available_at;
 
-        return $this->blogRepository->update($payload);
+        return $this->blog->update($payload);
     }
 
     public function feed() {
-        return $this->blogRepository->feed();
+        return $this->blog->feed();
     }
 }

@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Blog;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Repositories\BlogRepositoryInterface;
 
 class BlogRepository {
     public function get($id) {
@@ -19,9 +19,9 @@ class BlogRepository {
         return $blog;
     }
     public function all($user_id) {
-        $user_blogs = Blog::with('user')->where('user_id', $user_id)->first();
+        $user_blogs = Blog::with('user')->where('user_id', $user_id)->paginate(4);
 
-        return $user_blogs->comments;
+        return $user_blogs;
     }
 
     public function feed() {

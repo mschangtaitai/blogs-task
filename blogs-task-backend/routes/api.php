@@ -19,15 +19,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/getuser', [UserController::class, 'show']);
 Route::get('/alluser', [UserController::class, 'index']);
 Route::delete('/users/{id}', [UserController::class, 'delete']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/getuser/{id}', [UserController::class, 'show']);
     Route::get('/blog/{id}', [BlogController::class, 'show']);
     Route::post('/blog', [BlogController::class, 'store']);
     Route::post('/updateblog', [BlogController::class, 'update']);
-    Route::get('/blogs', [BlogController::class, 'index']);
+    Route::get('/blogs/{user_id}', [BlogController::class, 'index']);
     Route::get('/feed', [BlogController::class, 'feed']);
     Route::post('/comment', [CommentController::class, 'store']);
     Route::get('/comments', [CommentController::class, 'index']);

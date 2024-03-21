@@ -12,8 +12,8 @@ class UserController extends Controller {
     ) {
     }
 
-    public function show() {
-        return $this->userRepository->get(1);
+    public function show($id) {
+        return $this->userRepository->get($id);
     }
 
     public function index() {

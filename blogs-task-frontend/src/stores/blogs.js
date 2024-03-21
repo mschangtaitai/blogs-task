@@ -14,6 +14,23 @@ export const blogsStore = defineStore('item', () => {
             blogs.splice(0)
             const response = await axios.get("/api/feed?page=1")
             const data = response.data.data
+            console.log(data)
+            prevLink.value = response.data.prev_page_url
+            nextLink.value = response.data.next_page_url
+
+            for (const blog in data) {
+                blogs.push(data[blog])
+            }
+        } catch (error) {
+        }
+    }
+
+    async function user_fill(id) {
+        try {
+            console.log("user_fill")
+            blogs.splice(0)
+            const response = await axios.get(`/api/blogs/${id}`)
+            const data = response.data.data
             prevLink.value = response.data.prev_page_url
             nextLink.value = response.data.next_page_url
 
@@ -50,5 +67,17 @@ export const blogsStore = defineStore('item', () => {
         }
     }
 
-    return { blogs, fill, prev, next }
+    async function load_more() {
+        if (nextLink.value) {
+            const response = await axios.get(nextLink.value.substr(16))
+            const data = response.data.data
+            prevLink.value = response.data.prev_page_url
+            nextLink.value = response.data.next_page_url
+            for (const blog in data) {
+                blogs.push(data[blog])
+            }
+        }
+    }
+
+    return { blogs, fill, user_fill, prev, next, load_more }
 })

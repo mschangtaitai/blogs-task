@@ -28,20 +28,11 @@
   const router = useRouter()
   
   const email = ref(null)
-  const password = ref(null)
-
-  async function getCookie() {
-    console.log("GET COOKIE")
-  }
-
-  async function request() {
-    console.log("GET REQUEST")
-    const cookie = await axios.get("api/feed")
-  }
-  
+  const password = ref(null)  
   
   async function login() {
     await axios.get("sanctum/csrf-cookie")
+    console.log(email.value + password.value)
     
     const response = await axios.post('/login', {
       email: email.value,

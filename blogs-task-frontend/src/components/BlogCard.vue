@@ -11,7 +11,9 @@
           <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt class="text-sm font-medium leading-6 text-gray-400">Author</dt>
             <!-- TODO Fix this interpolation -->
-            <dd class="mt-1 text-base leading-6 text-gray-100 sm:col-span-2 sm:mt-0">{{ blog?.user.first_name + ' ' + blog?.user.last_name }}</dd>
+            <RouterLink :to="'/userdetail/' + blog?.user.id">
+              <dd class="mt-1 text-base leading-6 text-gray-100 sm:col-span-2 sm:mt-0">{{ blog?.user.first_name + ' ' + blog?.user.last_name }}</dd>
+            </RouterLink>
           </div>
         </dl>
 
@@ -21,15 +23,8 @@
 
 </template>
 <script setup>
-  import router from '@/router';
   import { RouterLink } from 'vue-router';
   const props = defineProps({
     blog: Object
   })
-
-  function open() {
-    router.push(`/blog/${props.blog?.id}`)
-  }
-
-
 </script>
