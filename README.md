@@ -11,10 +11,10 @@ The goal is to create a blogging application that interacts with various systems
     - Set up Redis service with a volume in the Docker Compose file. :heavy_check_mark:
 - Allow only users who created blogs to update them. :heavy_check_mark:
 - Research Dependency Injection in Laravel. :heavy_check_mark:
-- Create services for actions and inject them with DI, for example: :part_alternation_mark:
+- Create services for actions and inject them with DI, for example: :heavy_check_mark:
     - BlogService
-        - create: Creates a blog and returns the eloquent model created.
-- Display blogs only when the `available_at` value is not present or is earlier than the current date.
+        - create: Creates a blog and returns the eloquent model created. :heavy_check_mark:
+- Display blogs only when the `available_at` value is not present or is earlier than the current date. :heavy_check_mark:
 - Implement a Scheduler:
     - Create a job that runs hourly to check if there are blogs becoming available within the next hour. Send an email and Discord message to the user with the log driver if no free driver is available.
 
@@ -43,7 +43,7 @@ The goal is to create a blogging application that interacts with various systems
 - **Vue3**
 - Utilize Vue Router with the following paths: 
     - Login :heavy_check_mark:
-    - Feed (Paginated  by infinite scrolling) :part_alternation_mark:
+    - Feed (Paginated  by infinite scrolling) :heavy_check_mark:
     - Blog detail (Show comments of the blog and allow expanding on comments) :heavy_check_mark:
     - User detail with its blogs (Paginated) :heavy_check_mark:
 - Use Pinia for state management: :heavy_check_mark:
@@ -51,5 +51,5 @@ The goal is to create a blogging application that interacts with various systems
     - Update a blog from its detail and also update it from the feeds. :heavy_check_mark:
     - Utilize persisted state for the feed. 
 - Use logic with compositions when useful. :heavy_check_mark:
-- Implement Vee-Validate library for value validations.
+- Implement Vee-Validate library for value validations. :heavy_check_mark:
 - Develop all components using the setup script tag. :heavy_check_mark:
