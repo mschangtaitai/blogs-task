@@ -5,8 +5,9 @@ namespace App\Repositories;
 use App\Models\Blog;
 use App\Models\User;
 use App\Repositories\BlogRepositoryInterface;
+use Carbon\Carbon;
 
-class BlogRepository {
+class BlogRepository implements BlogRepositoryInterface {
     public function get($id) {
         $blog =  Blog::with('user')->findOrFail($id);
         $comments = array();
@@ -19,24 +20,20 @@ class BlogRepository {
         return $blog;
     }
     public function all($user_id) {
-        $user_blogs = Blog::with('user')->where('user_id', $user_id)->paginate(4);
+        $user_blogs = Blog::with('user')->where('user_id', $user_id)->whereDateIsBefore('available_at', Carbon::now())->paginate(4);
 
         return $user_blogs;
     }
 
     public function feed() {
-        $blogs = Blog::with('user')->paginate(4);
-        return $blogs;
+        $blogs = Blog::with('user')->whereDate('available_at', '<', Carbon::now());
+        $blogsNull = Blog::with('user')->where('available_at', null);
+        $blogsMerged = $blogs->unionAll($blogsNull)->paginate(4);
+        return $blogsMerged;
     }
 
     public function store($payload) {
-        return Blog::create([
-            'user_id' => $payload->user_id,
-            'title' => $payload->title,
-            'content' => $payload->content,
-            'hide_comments' => $payload->hide_comments,
-            'available_at' => $payload->available_at,
-        ]);
+        return Blog::create($payload);
     }
 
     public function update($payload) {

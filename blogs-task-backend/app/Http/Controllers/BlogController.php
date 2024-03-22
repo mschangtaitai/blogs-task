@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Repositories\BlogRepository;
 use App\Repositories\BlogRepositoryInterface;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 use stdClass;
 
 class BlogController extends Controller {
@@ -30,12 +32,13 @@ class BlogController extends Controller {
             'hide_comments' => 'required|boolean',
         ]);
 
-        $payload = new stdClass();
-        $payload->user_id = $request->user()->id;
-        $payload->title = $request->title;
-        $payload->content = $request->content;
-        $payload->hide_comments = $request->hide_comments;
-        $payload->available_at = $request->available_at;
+        $payload = array(
+            'user_id' => $request->user()->id,
+            'title' => $request->title,
+            'content' => $request->content,
+            'hide_comments' => $request->hide_comments,
+            'available_at' => $request->available_at,
+        );
 
         return $this->blog->store($payload);
     }
@@ -47,12 +50,13 @@ class BlogController extends Controller {
             'hide_comments' => 'required|boolean',
         ]);
 
-        $payload = new stdClass();
-        $payload->user_id = $request->user()->id;
-        $payload->title = $request->title;
-        $payload->content = $request->content;
-        $payload->hide_comments = $request->hide_comments;
-        $payload->available_at = $request->available_at;
+        $payload = array(
+            'user_id' => $request->user()->id,
+            'title' => $request->title,
+            'content' => $request->content,
+            'hide_comments' => $request->hide_comments,
+            'available_at' => $request->available_at,
+        );
 
         return $this->blog->update($payload);
     }
