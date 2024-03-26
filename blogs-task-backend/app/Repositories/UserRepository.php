@@ -9,6 +9,7 @@ class UserRepository {
         return User::findOrFail($id);
     }
     public function all() {
+        error_log('Schedule!');
         return User::all();
     }
 

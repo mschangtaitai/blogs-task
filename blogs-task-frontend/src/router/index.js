@@ -16,6 +16,10 @@ const router = createRouter({
                     component: () => import('../views/FeedView.vue')
                 },
                 {
+                    path: '/create',
+                    component: () => import('../views/CreateBlogView.vue')
+                },
+                {
                     path: '/blog/:id',
                     component: () => import('../views/BlogView.vue')
                 },

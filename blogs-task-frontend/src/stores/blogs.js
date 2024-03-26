@@ -12,7 +12,7 @@ export const blogsStore = defineStore('item', () => {
     async function fill() {
         try {
             blogs.splice(0)
-            const response = await axios.get("/api/feed?page=1")
+            const response = await axios.get("/feed?page=1")
             const data = response.data.data
             console.log(data)
             prevLink.value = response.data.prev_page_url
@@ -29,7 +29,7 @@ export const blogsStore = defineStore('item', () => {
         try {
             console.log("user_fill")
             blogs.splice(0)
-            const response = await axios.get(`/api/blogs/${id}`)
+            const response = await axios.get(`/blogs/${id}`)
             const data = response.data.data
             prevLink.value = response.data.prev_page_url
             nextLink.value = response.data.next_page_url
