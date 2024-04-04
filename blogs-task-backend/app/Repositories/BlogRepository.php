@@ -20,20 +20,26 @@ class BlogRepository implements BlogRepositoryInterface {
         return $blog;
     }
     public function all($user_id) {
-        $user_blogs = Blog::with('user')->where('user_id', $user_id)->whereDateIsBefore('available_at', Carbon::now())->paginate(4);
+        $user_blogs = Blog::with('user')->where('user_id', $user_id)->paginate(4);
 
         return $user_blogs;
     }
 
     public function feed() {
-        $blogs = Blog::with('user')->whereDate('available_at', '<', Carbon::now());
-        $blogsNull = Blog::with('user')->where('available_at', null);
-        $blogsMerged = $blogs->unionAll($blogsNull)->paginate(4);
-        return $blogsMerged;
+        $blogs = Blog::with('user')->whereDate('available_at', '<', Carbon::now())->orWhereNull('available_at')->paginate(4);
+        return $blogs;
     }
 
     public function store($payload) {
-        return Blog::create($payload);
+        $Blog = new Blog();
+        $Blog->user_id = $payload["user_id"];
+        $Blog->title = $payload["title"];
+        $Blog->content = $payload["content"];
+        $Blog->hide_comments = $payload["hide_comments"];
+        $Blog->available_at = $payload["available_at"];
+
+        $Blog->save();
+        return $Blog;
     }
 
     public function update($payload) {
@@ -47,5 +53,10 @@ class BlogRepository implements BlogRepositoryInterface {
         } else {
             return 'You are not the owner of this blog';
         }
+    }
+
+    public function delete($id) {
+        $blog = Blog::where('id', $id)->delete();
+        return $blog;
     }
 }

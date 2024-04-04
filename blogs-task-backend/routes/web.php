@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/comments', [CommentController::class, 'index']);
     Route::delete('/comment/{id}', [CommentController::class, 'delete']);
     Route::get('/user', [AuthenticatedSessionController::class, 'current']);
+    Route::delete('/blog/{id}', [BlogController::class, 'delete']);
 });
 
 Route::get('/', function () {

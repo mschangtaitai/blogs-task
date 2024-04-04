@@ -12,4 +12,6 @@ interface BlogRepositoryInterface {
     public function store($payload);
 
     public function update($payload);
+
+    public function delete($id);
 }

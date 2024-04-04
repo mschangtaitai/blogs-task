@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Repositories\BlogRepository;
 use App\Repositories\BlogRepositoryInterface;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use DateTimeImmutable;
 use stdClass;
 
 class BlogController extends Controller {
@@ -30,6 +31,7 @@ class BlogController extends Controller {
             'title' => 'required',
             'content' => 'required',
             'hide_comments' => 'required|boolean',
+            'available_at' => 'required',
         ]);
 
         $payload = array(
@@ -63,5 +65,9 @@ class BlogController extends Controller {
 
     public function feed() {
         return $this->blog->feed();
+    }
+
+    public function delete($id) {
+        return $this->blog->delete($id);
     }
 }

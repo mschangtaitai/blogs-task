@@ -4,7 +4,15 @@
     <div class=" py-10 sm:py-14">
       <div class="mx-auto max-w-7xl ">
         <div class="mx-auto max-w-2xl lg:mx-0">
-          <p class="text-base font-semibold leading-7 text-indigo-600">Blog app</p>
+          <div class="flex flex-row justify-between">
+            <div class="text-base font-semibold leading-7 text-indigo-600">Blog app</div>
+            <div @click="logout" class="text-base font-semibold leading-7 text-red-600 cursor-pointer">
+              Logout
+            </div>
+          </div>
+          <router-link :to="'/create'" class="text-base font-semibold leading-7 text-indigo-600">Create your own
+            blog!</router-link>
+
           <h2 class="mt-2 text-4xl font-bold tracking-tight text-white-900 sm:text-6xl">All your favorite blogs :D</h2>
         </div>
       </div>
@@ -39,16 +47,17 @@
     </div>
   </main>
 </template>
-<script setup lang="ts">
+<script setup>
 import BlogCard from "@/components/BlogCard.vue";
+import router from "@/router";
 import { blogsStore } from "@/stores/blogs";
-import { useInfiniteScroll } from '@vueuse/core'
+import { useBrowserLocation, useInfiniteScroll } from '@vueuse/core'
+import { onMounted, ref, inject } from "vue";
+import { useCookies } from "vue3-cookies";
 
-import { onMounted, ref } from "vue";
 const isLoading = ref(true)
 const store = blogsStore()
-const el = ref<HTMLElement | null>(null)
-
+const el = ref < HTMLElement | null > (null)
 
 useInfiniteScroll(
   el,
@@ -68,16 +77,27 @@ onMounted(async () => {
   isLoading.value = false
 })
 
-async function prev() {
-  isLoading.value = true
-  store.prev()
-  isLoading.value = false
-}
+// async function prev() {
+//   isLoading.value = true
+//   store.prev()
+//   isLoading.value = false
+// }
 
-async function next() {
-  isLoading.value = true
-  store.next()
-  isLoading.value = false
+// async function next() {
+//   isLoading.value = true
+//   store.next()
+//   isLoading.value = false
+// }
+
+function logout() {
+  console.log("logout")
+  // var cookies = document.cookies.split(";")
+  const cookies = useCookies();
+  var cookiesKeys = cookies.keys()
+
+  console.log(cookiesKeys)
+  // router.push('/login')
+
 }
 
 </script>

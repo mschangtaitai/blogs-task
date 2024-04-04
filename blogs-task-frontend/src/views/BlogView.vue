@@ -30,10 +30,13 @@
             <dd class="mt-1 text-base leading-6 text-gray-100 sm:col-span-2 sm:mt-0">Leave your comment!</dd>
           </div>
           <div class="px-4 py-6">
-            <Form @submit="submit">
+            <Form @submit="send">
               <Field v-model="comment" id="comment" name="comment"
                 class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="Place your comment" type="text" />
+
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded">Send</button>
+
             </Form>
           </div>
         </dl>
@@ -67,12 +70,12 @@ onMounted(async () => {
   isLoading.value = false
 })
 
-async function submit() {
+async function send() {
 
   const response = await axios.post('/comment', {
     commentable_type: 'Blog',
     commentable_id: blog.id,
-    comment: comment
+    comment: comment.value
   })
 }
 </script>
