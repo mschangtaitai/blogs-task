@@ -77,5 +77,6 @@ async function send() {
     commentable_id: blog.id,
     comment: comment.value
   })
+  location.reload()
 }
 </script>

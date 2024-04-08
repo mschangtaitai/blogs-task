@@ -1,21 +1,21 @@
 <template>
-  <main class="w-full">
+  <main class="mt-5">
 
-    <div class=" py-10 sm:py-14">
-      <div class="mx-auto max-w-7xl ">
-        <div class="mx-auto max-w-2xl lg:mx-0">
-          <div class="flex flex-row justify-between">
-            <div class="text-base font-semibold leading-7 text-indigo-600">Blog app</div>
-            <div @click="logout" class="text-base font-semibold leading-7 text-red-600 cursor-pointer">
-              Logout
-            </div>
+    <div class="py-10">
+
+      <div>
+        <div class="flex flex-row justify-between">
+          <div class="text-base font-semibold leading-7 text-indigo-600">Blog app</div>
+          <div @click="logout" class="text-base font-semibold leading-7 text-red-600 cursor-pointer">
+            Logout
           </div>
-          <router-link :to="'/create'" class="text-base font-semibold leading-7 text-indigo-600">Create your own
-            blog!</router-link>
-
-          <h2 class="mt-2 text-4xl font-bold tracking-tight text-white-900 sm:text-6xl">All your favorite blogs :D</h2>
         </div>
+        <router-link :to="'/create'" class="text-base font-semibold leading-7 text-indigo-600">Create your own
+          blog!</router-link>
+
+        <h2 class="mt-2 font-bold text-white-900 sm:text-6xl">All your favorite blogs :D</h2>
       </div>
+
 
       <div v-if="isLoading">
         Loading...
@@ -27,7 +27,7 @@
         </div>
       </div> -->
 
-      <div ref="el" v-if="store.blogs.length > 0" class="flex-col gap-y-3 mt-8">
+      <div ref="el" v-if="store.blogs.length > 0" class="flex-col gap-y-3">
         <BlogCard v-for="blog in store.blogs" :key="blog.id" :blog="blog" />
       </div>
 
@@ -54,7 +54,9 @@ import { blogsStore } from "@/stores/blogs";
 import { useBrowserLocation, useInfiniteScroll } from '@vueuse/core'
 import { onMounted, ref, inject } from "vue";
 import { useCookies } from "vue3-cookies";
+import useAxios from "@/composables/useAxios.js"
 
+const axios = useAxios()
 const isLoading = ref(true)
 const store = blogsStore()
 const el = ref < HTMLElement | null > (null)
@@ -89,15 +91,13 @@ onMounted(async () => {
 //   isLoading.value = false
 // }
 
-function logout() {
+async function logout() {
   console.log("logout")
   // var cookies = document.cookies.split(";")
-  const cookies = useCookies();
-  var cookiesKeys = cookies.keys()
-
-  console.log(cookiesKeys)
-  // router.push('/login')
-
+  // localStorage.removeItem('token')
+  // localStorage.removeItem('expiration')
+  await axios.post('/logout')
+  router.push('/login')
 }
 
 </script>

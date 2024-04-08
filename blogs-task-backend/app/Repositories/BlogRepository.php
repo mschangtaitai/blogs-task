@@ -12,8 +12,15 @@ class BlogRepository implements BlogRepositoryInterface {
         $blog =  Blog::with('user')->findOrFail($id);
         $comments = array();
         foreach ($blog->comments as $comment) {
+            $comment_comments = array();
             $user = User::findOrFail($comment->user_id);
             $comment->setAttribute('user', $user->first_name . ' ' . $user->last_name);
+            foreach ($comment->comments as $comment_comment) {
+                $user = User::findOrFail($comment_comment->user_id);
+                $comment_comment->setAttribute('user', $user->first_name . ' ' . $user->last_name);
+                array_push($comment_comments, $comment_comment);
+            }
+            $comment->setAttribute('comments', $comment->comment_comments);
             array_push($comments, $comment);
         }
         $blog->setAttribute('comments', $blog->comments);
