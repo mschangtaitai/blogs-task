@@ -5,12 +5,22 @@
     <Form @submit="submit" class="rounded-xl px-20 py-10 sm:py-14 bg-gray-600">
         <div class="font-bold py-2">Title</div>
         <Field v-model="title" id="title" name="title"
-            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            class="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             placeholder="Title" type="text" />
         <div class="font-bold py-2">Content</div>
-        <Field v-model="content" id="content" name="content"
-            class="h-96 block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="Place your content" type="string" />
+        <div id="my-toolbar" class="rounded-md bg-white">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-direction" value="rtl"></button>
+        </div>
+        <QuillEditor v-model:content="content" toolbar="#my-toolbar" content-type="html"
+            class="rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900">
+        </QuillEditor>
+        <!-- <QuillEditor v-model="content" toolbar="minimal" theme="snow"
+            class="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900" /> -->
 
         <label class="w-full py-4 inline-flex items-center cursor-pointer">
             <input type="checkbox" id="hideComments" v-model="hideComments" class="sr-only peer">
@@ -41,7 +51,8 @@
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { Form, Field } from 'vee-validate';
-
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import useAxios from "@/composables/useAxios.js"
 
 const axios = useAxios()
@@ -54,10 +65,7 @@ const available_at_date = ref(null)
 const available_at_hour = ref(null)
 
 async function submit() {
-    console.log(title.value + content.value)
-    console.log(hideComments.value)
-    console.log(available_at_date.value)
-    console.log(available_at_hour.value)
+    console.log(content.value)
 
     // const response = await axios.delete('/blog/16', {
     // })
