@@ -19,8 +19,6 @@
         <QuillEditor v-model:content="content" toolbar="#my-toolbar" content-type="html"
             class="rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900">
         </QuillEditor>
-        <!-- <QuillEditor v-model="content" toolbar="minimal" theme="snow"
-            class="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900" /> -->
 
         <label class="w-full py-4 inline-flex items-center cursor-pointer">
             <input type="checkbox" id="hideComments" v-model="hideComments" class="sr-only peer">
@@ -77,5 +75,8 @@ async function submit() {
         available_at: available_at_date.value + " " + available_at_hour.value + ":00"
 
     })
+
+    router.push('/feed')
+
 }
 </script>

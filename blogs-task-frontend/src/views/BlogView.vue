@@ -6,6 +6,7 @@
     <div class="mx-auto max-w-2xl flex-col">
       <h2 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">{{ blog.title }}</h2>
       <p class="mt-6 text-lg leading-8 text-gray-300" v-html="blog.content"></p>
+
       <div v-if="blog.hide_comments == false">
 
         <h3 class="text-2xl text-gray-100 sm:text-3xl pt-10">Comments</h3>
@@ -39,6 +40,19 @@
   </div>
 
 </template>
+<style>
+ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+  padding: 0%;
+}
+
+ul {
+  list-style-type: disc;
+  list-style-position: inside;
+  padding: 0%;
+}
+</style>
 <script setup>
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
