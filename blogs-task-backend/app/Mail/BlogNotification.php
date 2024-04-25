@@ -16,7 +16,7 @@ class BlogNotification extends Mailable {
     /**
      * Create a new message instance.
      */
-    public function __construct(Blog $blog) {
+    public function __construct(public Blog $blog) {
     }
 
     /**
@@ -31,10 +31,9 @@ class BlogNotification extends Mailable {
     /**
      * Get the message content definition.
      */
-    public function content(Blog $blog): Content {
-        $text = 'Your blog ' . $blog->title . ' will be available within the next hour.';
+    public function content(): Content {
         return new Content(
-            text: $text,
+            view: 'emails.blogNotification',
         );
     }
 

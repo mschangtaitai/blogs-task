@@ -18,7 +18,7 @@ class Comment extends Model {
     ];
 
     public function commentable(): MorphTo {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 
     public function comments(): MorphMany {
@@ -26,6 +26,6 @@ class Comment extends Model {
     }
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 }

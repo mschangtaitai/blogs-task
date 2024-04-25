@@ -23,16 +23,17 @@ Route::get('/alluser', [UserController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getuser/{id}', [UserController::class, 'show']);
-    Route::get('/blog/{id}', [BlogController::class, 'show']);
-    Route::post('/blog', [BlogController::class, 'store']);
+    Route::get('/blogs/{id}', [BlogController::class, 'show']);
+    Route::post('/blogs', [BlogController::class, 'store']);
     Route::post('/updateblog', [BlogController::class, 'update']);
-    Route::get('/blogs/{user_id}', [BlogController::class, 'index']);
+    Route::get('/user_blogs/{user_id}', [BlogController::class, 'index']);
     Route::get('/feed', [BlogController::class, 'feed']);
-    Route::post('/comment', [CommentController::class, 'store']);
+    Route::get('/deleted_blogs', [BlogController::class, 'deletedBlogs']);
+    Route::post('/comments', [CommentController::class, 'store']);
     Route::get('/comments', [CommentController::class, 'index']);
-    Route::delete('/comment/{id}', [CommentController::class, 'delete']);
+    Route::delete('/comments/{id}', [CommentController::class, 'delete']);
     Route::get('/user', [AuthenticatedSessionController::class, 'current']);
-    Route::delete('/blog/{id}', [BlogController::class, 'delete']);
+    Route::delete('/blogs/{id}', [BlogController::class, 'delete']);
 });
 
 Route::get('/', function () {

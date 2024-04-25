@@ -16,14 +16,7 @@ class Kernel extends ConsoleKernel {
      */
     protected function schedule(Schedule $schedule): void {
         // $schedule->command('inspire')->hourly();
-        $schedule->call(function () {
-            error_log("Schedule!");
-            $blogs = Blog::with('user')->whereDate('available_at', '>', Carbon::now())->whereDate('available_at', '<', Carbon::now()->addHour())->all();
-            foreach ($blogs as $blog) {
-
-                Mail::to($blog->user->email)->send(new BlogNotification($blog));
-            }
-        })->everyFiveSeconds();
+        $schedule->command('app:send-emails')->hourly();
     }
 
     /**

@@ -21,26 +21,25 @@ class BlogController extends Controller {
         return $this->blog->get($id);
     }
 
-    public function index($user_id) {
-        $user_id = $user_id;
-        return $this->blog->all($user_id);
+    public function index($userId) {
+        return $this->blog->all($userId);
     }
 
     public function store(Request $request) {
         request()->validate([
             'title' => 'required',
             'content' => 'required',
-            'hide_comments' => 'required|boolean',
-            'available_at' => 'required',
+            'hideComments' => 'required|boolean',
+            'availableAt' => 'required',
         ]);
 
-        $payload = array(
-            'user_id' => $request->user()->id,
+        $payload = [
+            'userId' => $request->user()->id,
             'title' => $request->title,
             'content' => $request->content,
-            'hide_comments' => $request->hide_comments,
-            'available_at' => $request->available_at,
-        );
+            'hideComments' => $request->hideComments,
+            'availableAt' => $request->availableAt,
+        ];
 
         return $this->blog->store($payload);
     }
@@ -49,16 +48,16 @@ class BlogController extends Controller {
         request()->validate([
             'title' => 'required',
             'content' => 'required',
-            'hide_comments' => 'required|boolean',
+            'hideComments' => 'required|boolean',
         ]);
 
-        $payload = array(
+        $payload = [
             'user_id' => $request->user()->id,
             'title' => $request->title,
             'content' => $request->content,
-            'hide_comments' => $request->hide_comments,
-            'available_at' => $request->available_at,
-        );
+            'hideComments' => $request->hideComments,
+            'availableAt' => $request->availableAt,
+        ];
 
         return $this->blog->update($payload);
     }
@@ -69,5 +68,9 @@ class BlogController extends Controller {
 
     public function delete($id) {
         return $this->blog->delete($id);
+    }
+
+    public function deletedBlogs() {
+        return $this->blog->deletedBlogs();
     }
 }

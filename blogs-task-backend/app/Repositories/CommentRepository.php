@@ -10,10 +10,10 @@ class CommentRepository implements CommentRepositoryInterface {
     public function get($id) {
         return Comment::findOrFail($id);
     }
-    public function all($user_id) {
-        $user_comments = Comment::with('user')->where('user_id', $user_id)->get();
+    public function all($userId) {
+        $userComments = Comment::with('user')->where('user_id', $userId)->get();
 
-        return $user_comments;
+        return $userComments;
     }
 
     public function store($payload) {
