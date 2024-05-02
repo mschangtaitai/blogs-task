@@ -1,35 +1,24 @@
 <template>
     <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-4xl font-bold tracking-tight text-blue-900 sm:text-6xl">Blogs app</h2>
+        <TitleText class="text-blue-900" text="Blogs app" />
         <p class="mt-6 text-lg leading-8 text-white-600">Sign up the best blogs app!</p>
     </div>
     <Form @submit="login" class="rounded-xl px-20 py-10 sm:py-14 bg-gray-600">
         <div class="font-bold py-2">First Name</div>
-        <Field v-model="first_name" id="first name" name="first name"
-            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="First name" type="string" />
+        <InputField v-model="first_name" id="first name" name="first name" placeholder="First name" type="string" />
         <div class="font-bold py-2">Last Name</div>
-        <Field v-model="last_name" id="last name" name="last name"
-            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="Last name" type="string" />
+        <InputField v-model="last_name" id="last name" name="last name" placeholder="Last name" type="string" />
         <div class="font-bold py-2">Username</div>
-        <Field v-model="username" id="username" name="username"
-            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="Username" type="string" />
+        <InputField v-model="username" id="username" name="username" placeholder="Username" type="string" />
         <div class="font-bold py-2">Email</div>
-        <Field v-model="email" id="email" name="email"
-            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="Email" type="mail" />
+        <InputField v-model="email" id="email" name="email" placeholder="Email" type="mail" />
         <div class="font-bold py-2">Password</div>
-        <Field v-model="password" id="password" name="password"
-            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="Password" type="password" />
+        <InputField v-model="password" id="password" name="password" placeholder="Password" type="password" />
         <div class="font-bold py-2">Confirm password</div>
-        <Field v-model="confirm_password" id="confirm password" name="confirm password"
-            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        <InputField v-model="confirm_password" id="confirm password" name="confirm password"
             placeholder="Confirm Password" type="password" />
 
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded mb-5">Sign up</button>
+        <CustomButton2 text="Sign up" />
 
         <RouterLink :to="'/login/'" class="my-2">
             <dd class="text-base leading-6 text-gray-100 sm:col-span-2 sm:mt-0">Already have an account? Log in!</dd>
@@ -40,9 +29,13 @@
 
 </template>
 <script setup>
-import { computed, onMounted, reactive, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { Form, Field } from 'vee-validate';
+import { Form } from 'vee-validate';
+import InputField from "@/components/InputField.vue";
+import TitleText from "@/components/TitleText.vue";
+import CustomButton2 from "@/components/CustomButton2.vue";
+
 
 import useAxios from "@/composables/useAxios.js"
 

@@ -37,24 +37,24 @@ class BlogRepository implements BlogRepositoryInterface {
         return $blogs;
     }
 
-    public function store($payload) {
-        $Blog = new Blog();
-        $Blog->user_id = $payload["userId"];
-        $Blog->title = $payload["title"];
-        $Blog->content = $payload["content"];
-        $Blog->hide_comments = $payload["hideComments"];
-        $Blog->available_at = $payload["availableAt"];
+    public function store($bodyRequest) {
+        $blog = new Blog();
+        $blog->user_id = $bodyRequest->get_userId();
+        $blog->title = $bodyRequest->get_title();
+        $blog->content = $bodyRequest->get_content();
+        $blog->hide_comments = $bodyRequest->get_hideComments();
+        $blog->available_at = $bodyRequest->get_availableAt();
 
-        $Blog->save();
-        return $Blog;
+        $blog->save();
+        return $blog;
     }
 
-    public function update($payload) {
-        $blog = Blog::where('id', $payload->userId)->first();
-        if ($blog->user_id == $payload->userId) {
-            $blog->title = $payload->title;
-            $blog->content = $payload->content;
-            $blog->hide_comments = $payload->hideComments;
+    public function update($bodyRequest) {
+        $blog = Blog::where('id', $bodyRequest->get_userId())->first();
+        if ($blog->user_id == $bodyRequest->get_userId()) {
+            $blog->title = $bodyRequest->get_title();
+            $blog->content = $bodyRequest->get_content();
+            $blog->hide_comments = $bodyRequest->get_hideComments();
             $blog->save();
             return $blog;
         } else {

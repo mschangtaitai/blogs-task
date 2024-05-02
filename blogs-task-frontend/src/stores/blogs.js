@@ -29,7 +29,23 @@ export const blogsStore = defineStore('item', () => {
         try {
             console.log("user_fill")
             blogs.splice(0)
-            const response = await axios.get(`/blogs/${id}`)
+            const response = await axios.get(`/user_blogs/${id}`)
+            const data = response.data.data
+            prevLink.value = response.data.prev_page_url
+            nextLink.value = response.data.next_page_url
+
+            for (const blog in data) {
+                blogs.push(data[blog])
+            }
+        } catch (error) {
+        }
+    }
+
+    async function deleted_fill(id) {
+        try {
+            console.log("deleted_fill")
+            blogs.splice(0)
+            const response = await axios.get(`/deleted_blogs`)
             const data = response.data.data
             prevLink.value = response.data.prev_page_url
             nextLink.value = response.data.next_page_url
@@ -79,5 +95,5 @@ export const blogsStore = defineStore('item', () => {
         }
     }
 
-    return { blogs, fill, user_fill, prev, next, load_more }
+    return { blogs, fill, user_fill, deleted_fill, prev, next, load_more }
 })

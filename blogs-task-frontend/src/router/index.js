@@ -20,6 +20,10 @@ const router = createRouter({
                     component: () => import('../views/FeedView.vue')
                 },
                 {
+                    path: '/deleted',
+                    component: () => import('../views/DeletedBlogsView.vue')
+                },
+                {
                     path: '/create',
                     component: () => import('../views/CreateBlogView.vue')
                 },

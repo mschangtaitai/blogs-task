@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DateTimeImmutable;
 use stdClass;
+use App\Classes\CreateBlogBodyRequest;
 
 class BlogController extends Controller {
     //
@@ -33,15 +34,14 @@ class BlogController extends Controller {
             'availableAt' => 'required',
         ]);
 
-        $payload = [
-            'userId' => $request->user()->id,
-            'title' => $request->title,
-            'content' => $request->content,
-            'hideComments' => $request->hideComments,
-            'availableAt' => $request->availableAt,
-        ];
+        $bodyRequest = new CreateBlogBodyRequest();
+        $bodyRequest->set_userId($request->user()->id);
+        $bodyRequest->set_title($request->title);
+        $bodyRequest->set_content($request->content);
+        $bodyRequest->set_hideComments($request->hideComments);
+        $bodyRequest->set_availableAt($request->availableAt);
 
-        return $this->blog->store($payload);
+        return $this->blog->store($bodyRequest);
     }
 
     public function update(Request $request) {
@@ -51,15 +51,14 @@ class BlogController extends Controller {
             'hideComments' => 'required|boolean',
         ]);
 
-        $payload = [
-            'user_id' => $request->user()->id,
-            'title' => $request->title,
-            'content' => $request->content,
-            'hideComments' => $request->hideComments,
-            'availableAt' => $request->availableAt,
-        ];
+        $bodyRequest = new CreateBlogBodyRequest();
+        $bodyRequest->set_userId($request->user()->id);
+        $bodyRequest->set_title($request->title);
+        $bodyRequest->set_content($request->content);
+        $bodyRequest->set_hideComments($request->hideComments);
+        $bodyRequest->set_availableAt($request->availableAt);
 
-        return $this->blog->update($payload);
+        return $this->blog->update($bodyRequest);
     }
 
     public function feed() {

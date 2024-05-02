@@ -1,19 +1,15 @@
 <template>
   <div class="mx-auto max-w-2xl text-center">
-    <h2 class="text-4xl font-bold tracking-tight text-blue-900 sm:text-6xl">Blogs app</h2>
+    <TitleText class="text-blue-900" text="Blogs app" />
     <p class="mt-6 text-lg leading-8 text-white-600">Log in to the best blogs app!</p>
   </div>
   <Form @submit="login" class="rounded-xl px-20 py-10 sm:py-14 bg-gray-600">
     <div class="font-bold py-2">Email</div>
-    <Field v-model="email" id="email" name="email"
-      class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      placeholder="Email" type="mail" />
+    <InputField v-model="email" id="email" name="email" placeholder="Email" type="mail" />
     <div class="font-bold py-2">Password</div>
-    <Field v-model="password" id="password" name="password"
-      class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      placeholder="Password" type="password" />
+    <InputField v-model="password" id="password" name="password" placeholder="Password" type="password" />
 
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded mb-5">Log In</button>
+    <CustomButton2 text="Login" />
 
 
     <RouterLink :to="'/signup/'" class="my-2">
@@ -23,9 +19,13 @@
 
 </template>
 <script setup>
-import { computed, onMounted, reactive, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { Form, Field } from 'vee-validate';
+import { Form } from 'vee-validate';
+import CustomButton2 from "@/components/CustomButton2.vue";
+import InputField from "@/components/InputField.vue";
+import TitleText from "@/components/TitleText.vue";
+
 
 import useAxios from "@/composables/useAxios.js"
 

@@ -6,14 +6,18 @@
       <div>
         <div class="flex flex-row justify-between">
           <div class="text-base font-semibold leading-7 text-indigo-600">Blog app</div>
-          <div @click="logout" class="text-base font-semibold leading-7 text-red-600 cursor-pointer">
-            Logout
-          </div>
+          <CustomButton @click="logout" text="Logout" />
         </div>
+        <div>
+
+          <router-link :to="'/deleted'" class="text-base font-semibold leading-7 text-indigo-600">Deleted
+            Blogs!</router-link>
+        </div>
+
         <router-link :to="'/create'" class="text-base font-semibold leading-7 text-indigo-600">Create your own
           blog!</router-link>
 
-        <h2 class="mt-2 font-bold text-white-900 sm:text-6xl">All your favorite blogs :D</h2>
+        <TitleText text="All your favorite blogs :D" />
       </div>
 
 
@@ -21,15 +25,7 @@
         Loading...
       </div>
 
-      <!-- <div ref="el" class="flex flex-col gap-2 p-4 w-300px h-300px m-auto overflow-y-scroll bg-gray-500/5 rounded">
-        <div v-for="item in data" :key="item" class="h-15 bg-gray-500/5 rounded p-3">
-          {{ item }}
-        </div>
-      </div> -->
-
-      <div ref="el" v-if="store.blogs.length > 0" class="flex-col gap-y-3">
-        <BlogCard v-for="blog in store.blogs" :key="blog.id" :blog="blog" />
-      </div>
+      <BlogList v-if="store.blogs.length > 0" />
 
       <div v-else>
         I'm sorry, there are no Blogs :(
@@ -48,12 +44,13 @@
   </main>
 </template>
 <script setup>
-import BlogCard from "@/components/BlogCard.vue";
+import CustomButton from "@/components/CustomButton.vue";
+import TitleText from "@/components/TitleText.vue";
+import BlogList from "@/components/BlogList.vue"
 import router from "@/router";
 import { blogsStore } from "@/stores/blogs";
-import { useBrowserLocation, useInfiniteScroll } from '@vueuse/core'
-import { onMounted, ref, inject } from "vue";
-import { useCookies } from "vue3-cookies";
+import { useInfiniteScroll } from '@vueuse/core'
+import { onMounted, ref } from "vue";
 import useAxios from "@/composables/useAxios.js"
 
 const axios = useAxios()
